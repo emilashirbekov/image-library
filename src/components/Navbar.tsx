@@ -9,24 +9,12 @@ import {
   NavbarMenu,
   NavbarMenuItem,
 } from "@nextui-org/navbar";
-import { Link } from "@nextui-org/link";
-import { Button } from "@nextui-org/button";
+import Link from "next/link";
+import { navItems } from "@/lib/constants/constants";
+import { DropdownComponent } from "./DropdownComponent";
 
 export default function App() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-
-  const menuItems = [
-    "Profile",
-    "Dashboard",
-    "Activity",
-    "Analytics",
-    "System",
-    "Deployments",
-    "My Settings",
-    "Team Settings",
-    "Help & Feedback",
-    "Log Out",
-  ];
 
   return (
     <Navbar className='bg-transparent' onMenuOpenChange={setIsMenuOpen}>
@@ -36,42 +24,46 @@ export default function App() {
           className='sm:hidden'
         />
         <NavbarBrand>
-          <p className='font-bold text-inherit'>Logo</p>
+          <Link href='/' className='font-bold text-inherit'>
+            <svg
+              fill='white'
+              className='ayR4i uFlu6'
+              width='32'
+              height='32'
+              viewBox='0 0 32 32'
+              version='1.1'
+              aria-labelledby='unsplash-home'
+              aria-hidden='false'
+            >
+              <desc lang='en-US'>Unsplash logo</desc>
+              <title id='unsplash-home'>Unsplash Home</title>
+              <path d='M10 9V0h12v9H10zm12 5h10v18H0V14h10v9h12v-9z'></path>
+            </svg>
+          </Link>
         </NavbarBrand>
       </NavbarContent>
 
       <NavbarContent className='hidden sm:flex gap-4' justify='center'>
-        <NavbarItem>
-          <Link color='foreground' href='#'>
-            Features
-          </Link>
-        </NavbarItem>
-        <NavbarItem isActive>
-          <Link href='#' aria-current='page'>
-            Customers
-          </Link>
-        </NavbarItem>
-        <NavbarItem>
-          <Link color='foreground' href='#'>
-            Integrations
-          </Link>
-        </NavbarItem>
+        {navItems.map((item, index) => (
+          <NavbarItem key={index + 1}>
+            <Link
+              color={`${
+                item.name === "Sign up" || "Sign in" ? "warning" : "primary"
+              }`}
+              href={item.link}
+            >
+              {item.name}
+            </Link>
+          </NavbarItem>
+        ))}
+        <DropdownComponent />
       </NavbarContent>
-      <NavbarContent justify='end'>
-        <NavbarItem className='hidden lg:flex'>
-          <Link href='#'>Login</Link>
-        </NavbarItem>
-        <NavbarItem>
-          <Button as={Link} color='primary' href='#' variant='flat'>
-            Sign Up
-          </Button>
-        </NavbarItem>
-      </NavbarContent>
+
       <NavbarMenu className='bg-transparent'>
-        {menuItems.map((item, index) => (
-          <NavbarMenuItem key={`${item}-${index}`}>
-            <Link className='w-full text-white' href='#' size='lg'>
-              {item}
+        {navItems.map((item, index) => (
+          <NavbarMenuItem key={`${index + 1}`}>
+            <Link className='w-full text-white' href={item.link}>
+              {item.name}
             </Link>
           </NavbarMenuItem>
         ))}
