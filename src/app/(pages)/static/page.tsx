@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   title: "Static image fetching",
 };
 
-const Page = async () => {
+const Static = async () => {
   const res = await fetch(
     `${process.env.BASE_URL}/photos/random?client_id=${process.env.ACCESS_KEY}`
   );
@@ -51,4 +51,4 @@ const Page = async () => {
   );
 };
 
-export default Page;
+export default Static;

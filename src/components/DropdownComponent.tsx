@@ -8,45 +8,30 @@ import {
 } from "@nextui-org/dropdown";
 import { Button } from "@nextui-org/button";
 import Link from "next/link";
-import React from "react";
 
 export const DropdownComponent = () => {
-  const [selectedKeys, setSelectedKeys] = React.useState(new Set(["text"]));
-
-  const selectedValue = React.useMemo(
-    () => Array.from(selectedKeys).join(", ").replaceAll("_", " "),
-    [selectedKeys]
-  );
   return (
-    <Dropdown className='bg-black'>
+    <Dropdown className='bg-black text-white'>
       <DropdownTrigger>
-        <Link href={`/topics/${selectedValue}`} className='text-white'>
-          {selectedValue}
-        </Link>
+        <Button className='text-white' variant='bordered'>
+          topics
+        </Button>
       </DropdownTrigger>
-      <DropdownMenu
-        aria-label='Single selection example'
-        variant='flat'
-        disallowEmptySelection
-        selectionMode='single'
-        selectedKeys={selectedKeys}
-        //@ts-ignore
-        onSelectionChange={setSelectedKeys}
-      >
+      <DropdownMenu aria-label='Static Actions'>
         <DropdownItem textValue='wallpaper' key='wallpaper'>
-          <Link href={"/topics/wallpaper"}>wallpaper</Link>
+          <Link href={"/wallpaper"}>wallpaper</Link>
         </DropdownItem>
         <DropdownItem textValue='health' key='health'>
-          <Link href={"/topics/health"}>health</Link>
+          <Link href={"/health"}>health</Link>
         </DropdownItem>
         <DropdownItem textValue='fitness' key='fitness'>
-          <Link href={"/topics/fitness"}>fitness</Link>
+          <Link href={"/fitness"}>fitness</Link>
         </DropdownItem>
         <DropdownItem textValue='coding' key='coding'>
-          <Link href={"/topics/coding"}>coding</Link>
+          <Link href={"/coding"}>coding</Link>
         </DropdownItem>
         <DropdownItem textValue='games' key='games'>
-          <Link href={"/topics/games"}>games</Link>
+          <Link href={"/games"}>games</Link>
         </DropdownItem>
       </DropdownMenu>
     </Dropdown>
