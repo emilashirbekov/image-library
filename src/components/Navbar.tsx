@@ -12,9 +12,11 @@ import {
 import Link from "next/link";
 import { navItems } from "@/lib/constants/constants";
 import { DropdownComponent } from "./DropdownComponent";
+import { usePathname } from "next/navigation";
 
 export default function App() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const pathname = usePathname();
 
   return (
     <Navbar className='bg-transparent' onMenuOpenChange={setIsMenuOpen}>
@@ -47,9 +49,7 @@ export default function App() {
         {navItems.map((item, index) => (
           <NavbarItem key={index + 1}>
             <Link
-              color={`${
-                item.name === "Sign up" || "Sign in" ? "warning" : "primary"
-              }`}
+              className={`${item.name === pathname ? "text-yellow-500" : ""}`}
               href={item.link}
             >
               {item.name}
@@ -62,7 +62,10 @@ export default function App() {
       <NavbarMenu className='bg-transparent'>
         {navItems.map((item, index) => (
           <NavbarMenuItem key={`${index + 1}`}>
-            <Link className='w-full text-white' href={item.link}>
+            <Link
+              className={`${item.name === pathname ? "text-yellow-500" : ""}`}
+              href={item.link}
+            >
               {item.name}
             </Link>
           </NavbarMenuItem>
